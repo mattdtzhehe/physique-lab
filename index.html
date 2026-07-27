@@ -1906,6 +1906,16 @@ function getTarget(){
       calves:ca,
       thighs:ca*1.50};
   }
+  // Height-scaled target: "if this bodybuilder were your height, what would their
+  // measurements be?" Scales each real stat by the same ratio, preserving their actual
+  // body proportions. This only affects the comparison/results math — the bio card on the
+  // selection screen reads DB directly and still shows their real, unscaled height/weight/keyFact.
+  if(bb.height&&userM&&userM.height){
+    const ratio=userM.height/bb.height;
+    const scaled={name:bb.name,sub:bb.sub,era:bb.era,keyFact:bb.keyFact,height:userM.height};
+    MKEYS.forEach(k=>{ if(bb[k]) scaled[k]=bb[k]*ratio; });
+    return scaled;
+  }
   return bb;
 }
 
@@ -2296,9 +2306,9 @@ function genRecs(user,target){
           body:`Current: ${fmtU(u)} — target: ${fmtU(ideal)}. Realistic timeline: ${time} of consistent progressive overload.`,
           delta:`+${fmtU(delta)}`});
       } else if(delta<-0.5){
-        recs.push({sc:Math.min(100,sc+5),pri:'o',icon:'🔥',
+        recs.push({sc:100,pri:'g',icon:'✓',
           title:`${lbl} Exceeds Target`,
-          body:`At ${fmtU(u)} you're ${fmtU(Math.abs(delta))} past the proportional target (${fmtU(ideal)}). Maintain current level — this is a strength.`,
+          body:`At ${fmtU(u)} you're ${fmtU(Math.abs(delta))} past the proportional target (${fmtU(ideal)}). This is a strength — no reduction needed, just maintain it.`,
           delta:`+${fmtU(Math.abs(delta))} over`});
       } else {
         recs.push({sc:100,pri:'g',icon:'✓',
@@ -2504,15 +2514,14 @@ const EXERCISE_LIBRARY={
     name:'CHEST',
     v1:[
       {name:'Barbell Bench Press/Dumbbell Bench Press',sets:4,reps:'6-8',rest:'2 min',note:'Full ROM, bar or dumbbells to lower chest, controlled descent'},
-      {name:'Weighted Dips',sets:4,reps:'10-12',rest:'60s',note:'Lean slightly forward for chest emphasis',ss:'chestv1'},
-      {name:'Chest Fly',sets:4,reps:'12-15',rest:'60s',note:'Full stretch at bottom, hard squeeze at center — flat or slight incline, whichever angle you feel it most',ss:'chestv1'},
+      {name:'Weighted Dips',sets:3,reps:'10-12',rest:'60s',note:'Lean slightly forward for chest emphasis',ss:'chestv1'},
+      {name:'Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch at bottom, hard squeeze at center — flat or slight incline, whichever angle you feel it most',ss:'chestv1'},
       {name:'Push-Ups',sets:2,reps:'To Failure',rest:'60s',note:'Bodyweight finisher to close out the chest work — full ROM, chest to floor'},
     ],
     v2:[
       {name:'Incline Barbell Press/Incline Dumbbell Press',sets:3,reps:'8-10',rest:'90s',note:'Upper chest emphasis, controlled negative'},
       {name:'Low-to-High Cable Fly',sets:3,reps:'12-15',rest:'60s',note:'Drives upper and inner chest',ss:'chestv2'},
-      {name:'Dips',sets:3,reps:'10-12',rest:'60s',note:'Lower chest thickness, lean forward for chest emphasis',ss:'chestv2'},
-      {name:'Pec Dec',sets:3,reps:'12-15',rest:'60s',note:'Full stretch at start, squeeze at contraction'},
+      {name:'Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch at bottom, hard squeeze at center',ss:'chestv2'},
     ],
     sec:[
       {name:'Dumbbell Press',sets:3,reps:'10-12',rest:'60s',note:'Secondary chest volume, feel each rep'},
@@ -2523,8 +2532,8 @@ const EXERCISE_LIBRARY={
     name:'BACK',
     v1:[
       {name:'Chest-Supported Row',sets:4,reps:'6-8',rest:'2 min',note:'Chest pinned to pad, eliminates lower-back strain — pure lat and mid-back thickness'},
-      {name:'Pull-Up',sets:4,reps:'8-10',rest:'90s',note:'Dead hang to chin over bar, full ROM',ss:'backv1'},
-      {name:'Seated Cable Row',sets:4,reps:'10-12',rest:'60s',note:'Elbows tight, full forward stretch',ss:'backv1'},
+      {name:'Pull-Up',sets:3,reps:'8-10',rest:'90s',note:'Dead hang to chin over bar, full ROM',ss:'backv1'},
+      {name:'Seated Cable Row',sets:3,reps:'10-12',rest:'60s',note:'Elbows tight, full forward stretch',ss:'backv1'},
       {name:'Rear Delt Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt and upper-back detail — squeeze shoulder blades together at the top'},
     ],
     v2:[
@@ -2543,43 +2552,43 @@ const EXERCISE_LIBRARY={
     v1:[
       {name:'Overhead Press (Barbell)',sets:4,reps:'6-8',rest:'2 min',note:'Strict form, lower to chin level'},
       {name:'Lateral Raise',sets:4,reps:'12-15',rest:'60s',note:'Lead with elbows, slight bend in arm'},
-      {name:'Arnold Press',sets:3,reps:'10-12',rest:'90s',note:'Full rotation hits all 3 heads'},
       {name:'Reverse Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt for 3D shoulder appearance'},
-      {name:'Front Raise (Plate)',sets:3,reps:'12-15',rest:'60s',note:'Front delt definition, controlled movement'},
+      {name:'Cable Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Cable keeps tension at top through the full range — key for width'},
+      {name:'Face Pull',sets:3,reps:'15-20',rest:'45s',note:'Rope attachment, pull to face height with elbows high — rear delt and upper-back detail, plus healthy shoulder rotation'},
     ],
     v2:[
       {name:'Dumbbell Shoulder Press',sets:4,reps:'8-10',rest:'90s',note:'Full ROM, bar path in front of face'},
       {name:'Cable Lateral Raise',sets:4,reps:'15-20',rest:'45s',note:'Cable keeps tension at top, key for width'},
-      {name:'Upright Row',sets:3,reps:'10-12',rest:'60s',note:'Wide grip for delt emphasis not trap'},
       {name:'Bent-Over Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Rear delt refinement, control the movement'},
-      {name:'Shrug',sets:3,reps:'15-20',rest:'60s',note:'Straight up, 1 second hold at top'},
+      {name:'Machine Lateral Raise',sets:3,reps:'12-15',rest:'60s',note:'Fixed path keeps strict form under fatigue — pure mid-delt isolation'},
+      {name:'Upright Row',sets:3,reps:'10-12',rest:'60s',note:'Wide grip for delt emphasis not trap'},
     ],
     sec:[
       {name:'Lateral Raise',sets:3,reps:'15',rest:'45s',note:'Medial delt width'},
       {name:'Dumbbell Shoulder Press',sets:3,reps:'10-12',rest:'90s',note:'Shoulder volume, full ROM'},
       {name:'Upright Row',sets:3,reps:'10-12',rest:'60s',note:'Wide grip for delt emphasis not trap'},
-      {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM, control the negative'},
+      {name:'Reverse Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt for 3D shoulder appearance'},
     ]
   },
   arms:{
     name:'ARMS',
     v1:[
-      {name:'Barbell Curl',sets:4,reps:'8-10',rest:'90s',note:'Full supination at top, no swinging'},
+      {name:'Barbell Curl',sets:3,reps:'8-10',rest:'90s',note:'Full supination at top, no swinging'},
       {name:'Incline Dumbbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Stretches long head, key for peak'},
-      {name:'Hammer Curl',sets:3,reps:'12-15',rest:'60s',note:'Brachialis and forearm thickness'},
-      {name:'Close-Grip Bench Press',sets:4,reps:'8-10',rest:'90s',note:'Elbows tucked, heaviest tricep builder'},
+      {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM, control the negative',ss:'armsv1'},
+      {name:'Reverse Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors and brachialis — hands pronated, control the negative',ss:'armsv1'},
+      {name:'JM Press',sets:3,reps:'8-10',rest:'90s',note:'Barbell or EZ-bar, hybrid skull-crusher/close-grip press — elbows stay tucked and forward, heavy tricep overload with minimal chest involvement'},
+      {name:'Single Arm Cable Tricep Kickback',sets:3,reps:'12-15',rest:'60s',note:'Elbow pinned to your side, full extension and hard squeeze at the bottom'},
       {name:'Skull Crushers',sets:3,reps:'10-12',rest:'60s',note:'EZ-bar, long head stretch for size'},
-      {name:'Barbell Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM on the wrist, do not rush'},
-      {name:'Reverse Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors and brachialis — hands pronated, control the negative'},
     ],
     v2:[
-      {name:'EZ-Bar Preacher Curl',sets:4,reps:'8-10',rest:'90s',note:'Full stretch at bottom, no cheating'},
       {name:'Cable Curl',sets:3,reps:'12-15',rest:'60s',note:'Constant tension throughout ROM'},
-      {name:'Concentration Curl',sets:3,reps:'12-15',rest:'45s',note:'Pure isolation, squeeze hard at top'},
       {name:'Overhead Tricep Extension',sets:4,reps:'10-12',rest:'60s',note:'Long head stretch, biggest tricep portion'},
       {name:'Tricep Pushdown (Rope)',sets:3,reps:'12-15',rest:'60s',note:'Spread at bottom for lateral head'},
-      {name:'Behind-the-Back Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors isolated — bar behind hips, wrist only'},
+      {name:'Diamond Push-Ups',sets:3,reps:'To Failure',rest:'60s',note:'Hands close together under chest, elbows tucked — hits all three tricep heads'},
       {name:'Reverse Barbell Curl',sets:3,reps:'12-15',rest:'45s',note:'Overhand grip targets forearm extensors and upper arm tie-in'},
+      {name:'EZ-Bar Preacher Curl',sets:4,reps:'8-10',rest:'90s',note:'Full stretch at bottom, no cheating',ss:'armsv2'},
+      {name:'Behind-the-Back Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors isolated — bar behind hips, wrist only',ss:'armsv2'},
     ],
     sec:[
       {name:'Barbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Bicep volume, full supination'},
@@ -2598,7 +2607,7 @@ const EXERCISE_LIBRARY={
     v2:[
       {name:'Front Squat or Hack Squat',sets:4,reps:'8-10',rest:'2 min',note:'Quad sweep emphasis, full depth'},
       {name:'Bulgarian Split Squat',sets:3,reps:'10-12',rest:'90s',note:'Each leg, hip hinge forward slightly'},
-      {name:'Lying Leg Curl',sets:3,reps:'12-15',rest:'60s',note:'Full ROM, hamstring length and separation'},
+      {name:'Stiff Leg Deadlift',sets:3,reps:'12-15',rest:'90s',note:'Straight-ish legs, hip hinge back, feel the hamstring stretch at the bottom'},
       {name:'Walking Lunge',sets:3,reps:'12-15',rest:'60s',note:'Long stride, full hip extension at top'},
       {name:'Leg Extension',sets:3,reps:'15-20',rest:'45s',note:'Quad definition and detail'},
     ],
@@ -2611,6 +2620,19 @@ const EXERCISE_LIBRARY={
 const CALF_EXTRA={name:'Standing Calf Raise',sets:5,reps:'15',rest:'45s',note:'Full stretch at bottom on every rep — do not bounce',isCalf:true};
 const NECK_EXTRA_EXT={name:'Neck Extension (plate)',sets:3,reps:'15-20',rest:'45s',note:'Plate on back of head, slow controlled movement — builds neck thickness'};
 const NECK_EXTRA_FLEX={name:'Neck Flexion (plate)',sets:3,reps:'15-20',rest:'45s',note:'Plate on forehead, chin to chest — front of neck and deep flexors'};
+
+// Fixed Arms/Shoulders combo-day routine — shoulders first, then arms — used verbatim any time
+// the schedule pairs arms and shoulders together, instead of the generic slice-of-primary +
+// secondary-of-coverage combining logic used for every other combo pairing.
+const ARMS_SHOULDERS_COMBO=[
+  {name:'Seated Dumbbell Lateral Raise',sets:4,reps:'10-15',rest:'60s',note:'Seated for stability, lead with elbows, slight bend in the arm'},
+  {name:'Upright Row',sets:3,reps:'10-15',rest:'60s',note:'Wide grip for delt emphasis not trap',ss:'asCombo'},
+  {name:'Cable Lateral Raise',sets:3,reps:'10-15',rest:'45s',note:'Cable keeps tension at top — paired with upright row for delt finishing volume',ss:'asCombo'},
+  {name:'Rear Delt Fly',sets:3,reps:'10-15',rest:'45s',note:'Squeeze shoulder blades together at the top — rear delt and upper-back detail'},
+  {name:'EZ-Bar Preacher Curl',sets:4,reps:'8-10',rest:'90s',note:'Full stretch at bottom, no cheating'},
+  {name:'Rope Pullover Triceps Extension',sets:4,reps:'8-12',rest:'60s',note:'Long head stretch overhead into the pullover path — control the eccentric, squeeze at full extension'},
+  {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM, control the negative'},
+];
 
 function getWorkoutScheduleData(){
   if(!selBB||!userM||!userM.height) return null;
@@ -2627,11 +2649,11 @@ function getWorkoutScheduleData(){
   var allGaps=[];
   allMeasured.forEach(function(m){
     var u=userM[m.meas],t=target[m.meas];
-    if(u&&t&&h&&th){var tAdj=(t/th)*h; if(u<tAdj) allGaps.push({label:m.label,group:m.group,ratio:u/tAdj});}
+    if(u&&t&&h&&th){var tAdj=(t/th)*h; if(u<tAdj) allGaps.push({label:m.label,group:m.group,ratio:u/tAdj,amt:tAdj-u});}
   });
   if(userM.waist&&target.waist&&h&&th){
     var waistTAdj=(target.waist/th)*h;
-    if(userM.waist>waistTAdj*1.03) allGaps.push({label:'Waist',group:'waist',ratio:waistTAdj/userM.waist});
+    if(userM.waist>waistTAdj*1.03) allGaps.push({label:'Waist',group:'waist',ratio:waistTAdj/userM.waist,amt:userM.waist-waistTAdj});
   }
   allGaps.sort(function(a,b){return a.ratio-b.ratio;});
   var top3Groups=allGaps.slice(0,3).map(function(g){return g.group;});
@@ -2691,7 +2713,7 @@ function getWorkoutScheduleData(){
     return true;
   });
   var top3Labels=allGaps.slice(0,3).map(function(g){return g.label;});
-  var mainGapData=top3.map(function(g){return {label:g.label,group:g.group,pct:Math.round((1-g.ratio)*100)};});
+  var mainGapData=top3.map(function(g){return {label:g.label,group:g.group,pct:Math.round((1-g.ratio)*100),amt:g.amt};});
   return {
     priorityGroups:priorityGroups,
     nonPriorityGroups:nonPriorityGroups,
@@ -2742,6 +2764,11 @@ function buildScheduleDays(data){
   }
   function isArmsShoulders(g1,g2){
     return (g1==='arms'&&g2==='shoulders')||(g1==='shoulders'&&g2==='arms');
+  }
+  // Fixed replacement for the arms+shoulders combo day — used verbatim in place of the generic
+  // slice-of-primary + secondary-of-coverage combining logic whenever arms and shoulders pair up.
+  function armsShouldersComboEx(){
+    return ARMS_SHOULDERS_COMBO.map(function(e){return {name:e.name,sets:e.sets,reps:e.reps,rest:e.rest,note:e.note,isPrimary:true,isCalf:false,ss:e.ss||null};});
   }
   // Duration estimate shared by the arms+shoulders time trim below and the neck-placement step
   // further down — ~40s per working set (30s for calf), ~75s transition between exercises (skipped
@@ -2821,9 +2848,8 @@ function buildScheduleDays(data){
     if(wp){
       var npv1a=nextNPFor(P[0]);
       if(npv1a){
-        d1ex=d1ex.slice(0,3).concat(secSet(npv1a));
+        d1ex=isArmsShoulders(P[0],npv1a)?armsShouldersComboEx():d1ex.slice(0,3).concat(secSet(npv1a));
         d1lbl=d1lbl+' + '+dnames[npv1a];
-        if(isArmsShoulders(P[0],npv1a)) d1ex=trimForTime(d1ex,3600);
       }
     }
   }
@@ -2837,9 +2863,8 @@ function buildScheduleDays(data){
     if(wp){
       var npv1b=nextNPFor(P[1]);
       if(npv1b){
-        d2ex=d2ex.slice(0,3).concat(secSet(npv1b));
+        d2ex=isArmsShoulders(P[1],npv1b)?armsShouldersComboEx():d2ex.slice(0,3).concat(secSet(npv1b));
         d2lbl=d2lbl+' + '+dnames[npv1b];
-        if(isArmsShoulders(P[1],npv1b)) d2ex=trimForTime(d2ex,3600);
       }
     }
   }
@@ -2860,9 +2885,8 @@ function buildScheduleDays(data){
   else if(P[0]==='legs'){d4ex=exSet(P[0],'v2');d4lbl=dnames[P[0]];}
   else{
     var np0=nextNPFor(P[0]);
-    d4ex=np0?exSet(P[0],'v2').slice(0,3).concat(secSet(np0)):exSet(P[0],'v2');
+    d4ex=np0?(isArmsShoulders(P[0],np0)?armsShouldersComboEx():exSet(P[0],'v2').slice(0,3).concat(secSet(np0))):exSet(P[0],'v2');
     d4lbl=np0?dnames[P[0]]+' + '+dnames[np0]:dnames[P[0]];
-    if(np0&&isArmsShoulders(P[0],np0)) d4ex=trimForTime(d4ex,3600);
   }
   if(sc) d4ex.push(calfEx());
   days.push({day:'Day 4',label:d4lbl,tag:'PRIORITY — SESSION 2',exercises:d4ex,cardio:sw,isCardioFocus:false});
@@ -2872,9 +2896,8 @@ function buildScheduleDays(data){
   else if(P[1]==='legs'){d5ex=exSet(P[1],'v2');d5lbl=dnames[P[1]];}
   else{
     var np1=nextNPFor(P[1]);
-    d5ex=np1?exSet(P[1],'v2').slice(0,3).concat(secSet(np1)):exSet(P[1],'v2');
+    d5ex=np1?(isArmsShoulders(P[1],np1)?armsShouldersComboEx():exSet(P[1],'v2').slice(0,3).concat(secSet(np1))):exSet(P[1],'v2');
     d5lbl=np1?dnames[P[1]]+' + '+dnames[np1]:dnames[P[1]];
-    if(np1&&isArmsShoulders(P[1],np1)) d5ex=trimForTime(d5ex,3600);
   }
   days.push({day:'Day 5',label:d5lbl,tag:'PRIORITY — SESSION 2',exercises:d5ex,cardio:sw});
 
@@ -2886,9 +2909,8 @@ function buildScheduleDays(data){
     var np2=nextNPFor(P[2]);
     d6ex=exSet(P[2],'v2');d6lbl=dnames[P[2]];
     if(np2){
-      d6ex=d6ex.slice(0,3).concat(secSet(np2));
+      d6ex=isArmsShoulders(P[2],np2)?armsShouldersComboEx():d6ex.slice(0,3).concat(secSet(np2));
       d6lbl=dnames[P[2]]+' + '+dnames[np2];
-      if(isArmsShoulders(P[2],np2)) d6ex=trimForTime(d6ex,3600);
     }
   }
   if(sc&&P[2]!=='waist') d6ex.push(calfEx());
@@ -2939,7 +2961,9 @@ function buildWorkoutTab(){
     h+='<div style="font-size:10px;font-weight:700;font-family:var(--mono);color:var(--txt2);letter-spacing:.4px;margin-top:12px;margin-bottom:6px">YOUR PRIORITY MUSCLE GROUPS — TRAINED TWICE PER WEEK</div>';
     h+='<div class="wrk-priority-row">';
     data.mainGapData.forEach(function(g){
-      h+='<div class="wrk-pri-badge">▲ '+g.label.toUpperCase()+' <span style="opacity:.7">(+'+g.pct+'% to close gap)</span></div>';
+      var gSign=g.group==='waist'?'−':'+';
+      var gAmtStr=g.amt?gSign+fmtU(g.amt)+', ':'';
+      h+='<div class="wrk-pri-badge">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+' <span style="opacity:.7">('+gAmtStr+'+'+g.pct+'% to close gap)</span></div>';
     });
     h+='</div>';
   }
@@ -3088,7 +3112,9 @@ function downloadWorkoutPDF(){
     priBoxHtml+='<div style="font-family:Courier New,monospace;font-size:8px;font-weight:700;color:#f5a623;letter-spacing:1.5px;margin-bottom:6px">PRIORITY TARGETS</div>';
     priBoxHtml+='<div style="display:flex;gap:8px;flex-wrap:wrap">';
     data.mainGapData.forEach(function(g){
-      priBoxHtml+='<div style="background:rgba(245,164,35,.12);border:1px solid rgba(245,164,35,.4);padding:4px 10px;border-radius:3px;font-family:Courier New,monospace;font-size:10px;font-weight:700;color:#f5a623;letter-spacing:.3px">▲ '+g.label.toUpperCase()+' +'+g.pct+'%</div>';
+      var gSign=g.group==='waist'?'−':'+';
+      var gAmtStr=g.amt?gSign+fmtU(g.amt)+', ':'';
+      priBoxHtml+='<div style="background:rgba(245,164,35,.12);border:1px solid rgba(245,164,35,.4);padding:4px 10px;border-radius:3px;font-family:Courier New,monospace;font-size:10px;font-weight:700;color:#f5a623;letter-spacing:.3px">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+' '+gAmtStr+'+'+g.pct+'%</div>';
     });
     priBoxHtml+='</div></div>';
   }
@@ -3283,6 +3309,10 @@ function getWaistRec(){
 function initNutrition(){
   document.getElementById('nutr-inputs').style.display='block';
   document.getElementById('nutr-plan-out').style.display='none';
+  if(userM&&userM.bodyweight){
+    var nutrBwEl=document.getElementById('nutr-bw');
+    if(nutrBwEl) nutrBwEl.value=userM.bodyweight;
+  }
   nutrGoal=null;
   document.getElementById('nutr-btn-lose').className='nutr-goal-btn';
   document.getElementById('nutr-btn-gain').className='nutr-goal-btn';
@@ -3370,7 +3400,7 @@ function buildNutrDay(day,di){
 
 function toggleNutrDay(di){
   var body=document.getElementById('nutr-body-'+di);
-  var hdr=document.getElementById('nutr-day--'+di).querySelector('.nutr-day-cals');
+  var hdr=document.getElementById('nutr-day-'+di).querySelector('.nutr-day-cals');
   if(body.classList.contains('open')){body.classList.remove('open');hdr.innerHTML='&#9660;';}
   else{body.classList.add('open');hdr.innerHTML='&#9650;';}
 }
