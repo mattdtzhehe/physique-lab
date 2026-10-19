@@ -2509,130 +2509,130 @@ const WORKOUT_PHILOSOPHY={
   golden:{quote:'"The golden ratio: 1.618 — where geometry meets the human form."',approach:'Proportion-first training. Every muscle developed to serve the ideal ratio. Shoulder and lat width prioritized. The waist is as important as the chest.'},
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Exercise library. Every day is built from these blocks. Chest and back are separate days
+// (chest pairs with triceps, back pairs with biceps). There's no standing arms day — arms only
+// get a dedicated session (or an add-on block) when they rank among the user's weakest areas.
+// ─────────────────────────────────────────────────────────────────────────────
 const EXERCISE_LIBRARY={
-  chest:{
+  chest:{ // Chest + Triceps day — chest portion
     name:'CHEST',
-    v1:[
-      {name:'Barbell Bench Press/Dumbbell Bench Press',sets:4,reps:'6-8',rest:'2 min',note:'Full ROM, bar or dumbbells to lower chest, controlled descent'},
-      {name:'Weighted Dips',sets:3,reps:'10-12',rest:'60s',note:'Lean slightly forward for chest emphasis',ss:'chestv1'},
-      {name:'Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch at bottom, hard squeeze at center — flat or slight incline, whichever angle you feel it most',ss:'chestv1'},
-      {name:'Push-Ups',sets:2,reps:'To Failure',rest:'60s',note:'Bodyweight finisher to close out the chest work — full ROM, chest to floor'},
-    ],
-    v2:[
-      {name:'Incline Barbell Press/Incline Dumbbell Press',sets:3,reps:'8-10',rest:'90s',note:'Upper chest emphasis, controlled negative'},
-      {name:'Low-to-High Cable Fly',sets:3,reps:'12-15',rest:'60s',note:'Drives upper and inner chest',ss:'chestv2'},
-      {name:'Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch at bottom, hard squeeze at center',ss:'chestv2'},
-    ],
-    sec:[
-      {name:'Dumbbell Press',sets:3,reps:'10-12',rest:'60s',note:'Secondary chest volume, feel each rep'},
-      {name:'Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Isolation, inner chest squeeze'},
+    main:[
+      {name:'Incline Smith Machine Press',sets:4,reps:'8-10',rest:'2 min',note:'Bench at ~30°, bar to upper chest, controlled 2-second negative — upper chest is the priority'},
+      {name:'Flat Dumbbell Press',sets:3,reps:'8-10',rest:'90s',note:'Full stretch at the bottom, press up and slightly in'},
+      {name:'Dips (Chest Lean)',sets:3,reps:'To Failure',rest:'60s',note:'Lean forward, elbows slightly flared — stop if the front of the shoulder complains',ss:'chestA'},
+      {name:'Machine Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch, hard squeeze at center',ss:'chestA'},
     ]
   },
-  back:{
+  triceps:{
+    name:'TRICEPS',
+    main:[
+      {name:'Overhead Rope Tricep Extension',sets:3,reps:'12-15',rest:'60s',note:'Long head stretch overhead — elbows stay pointed forward',ss:'triA'},
+      {name:'EZ-Bar Skull Crushers',sets:3,reps:'10-12',rest:'60s',note:'Lower to forehead or just behind, elbows tucked',ss:'triA'},
+    ]
+  },
+  back:{ // Back + Biceps day — back portion
     name:'BACK',
-    v1:[
-      {name:'Chest-Supported Row',sets:4,reps:'6-8',rest:'2 min',note:'Chest pinned to pad, eliminates lower-back strain — pure lat and mid-back thickness'},
-      {name:'Pull-Up',sets:3,reps:'8-10',rest:'90s',note:'Dead hang to chin over bar, full ROM',ss:'backv1'},
-      {name:'Seated Cable Row',sets:3,reps:'10-12',rest:'60s',note:'Elbows tight, full forward stretch',ss:'backv1'},
-      {name:'Rear Delt Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt and upper-back detail — squeeze shoulder blades together at the top'},
-    ],
-    v2:[
-      {name:'Weighted Pull-Up',sets:3,reps:'6-8',rest:'2 min',note:'Add weight when form is solid, full ROM'},
-      {name:'Single Arm Bench Row',sets:3,reps:'10-12',rest:'60s',note:'Full rotation at top for max contraction'},
-      {name:'Lat Pulldown',sets:3,reps:'10-12',rest:'60s',note:'Wide grip, pull to upper chest',ss:'backv2'},
-      {name:'Straight-Arm Cable/Pullover Machine',sets:3,reps:'15',rest:'60s',note:'Best lat isolation, feel the taper',ss:'backv2'},
-    ],
-    sec:[
-      {name:'Pull-Up or Lat Pulldown',sets:3,reps:'8-10',rest:'90s',note:'Width builder, full ROM on every rep'},
-      {name:'Seated Cable Row',sets:3,reps:'10-12',rest:'60s',note:'Back thickness, elbows pulled hard'},
+    main:[
+      {name:'Wide-Grip Pull-Ups',sets:4,reps:'To Failure',rest:'90s',note:'Dead hang to chin over bar — use assistance if you can\'t get 6+'},
+      {name:'Neutral-Grip Lat Pulldown',sets:3,reps:'10-12',rest:'90s',note:'Pull elbows down to your sides, pause at the bottom'},
+      {name:'Single-Arm Dumbbell Row',sets:3,reps:'8-10',rest:'90s',note:'Each arm, bench supported — pull to the hip, full stretch at the bottom'},
+      {name:'Machine Row',sets:3,reps:'10-12',rest:'60s',note:'Chest on pad, squeeze shoulder blades together',ss:'backA'},
+      {name:'Rear Delt Fly',sets:3,reps:'15-20',rest:'60s',note:'Rear delt and upper-back detail',ss:'backA'},
     ]
   },
-  shoulders:{
+  biceps:{
+    name:'BICEPS',
+    main:[
+      {name:'EZ-Bar Curl',sets:3,reps:'10-12',rest:'60s',note:'Elbows pinned, no swinging',ss:'biA'},
+      {name:'Reverse-Grip EZ-Bar Curl',sets:3,reps:'12-15',rest:'60s',note:'Overhand grip — brachialis and forearms',ss:'biA'},
+    ]
+  },
+  // Second weekly chest/back hit — kept short on purpose: three chest/back antagonist supersets,
+  // 9 sets each, no arm work.
+  chestBack:{
+    name:'CHEST + BACK',
+    main:[
+      {name:'Incline Dumbbell Press',sets:3,reps:'8-10',rest:'90s',note:'Upper chest, controlled negative',ss:'cb1'},
+      {name:'Chest-Supported Row',sets:3,reps:'8-10',rest:'90s',note:'Chest pinned to pad — pure mid-back thickness, no lower-back strain',ss:'cb1'},
+      {name:'Lat Pulldown',sets:3,reps:'10-12',rest:'60s',note:'Wide grip, pull to upper chest',ss:'cb2'},
+      {name:'Machine Chest Fly',sets:3,reps:'12-15',rest:'60s',note:'Full stretch, hard squeeze at center',ss:'cb2'},
+      {name:'Machine Pullover / Straight-Arm Pulldown',sets:3,reps:'12-15',rest:'60s',note:'Lat isolation — arms stay long, feel the stretch',ss:'cb3'},
+      {name:'Low-to-High Cable Fly',sets:3,reps:'12-15',rest:'60s',note:'Hands finish at chin height — upper chest',ss:'cb3'},
+    ]
+  },
+  legsA:{ // quad focus
+    name:'LEGS',
+    main:[
+      {name:'Hack Squat / V-Squat (or Back Squat)',sets:4,reps:'12-15',rest:'2 min',note:'Full depth, controlled descent, drive through the whole foot'},
+      {name:'Bulgarian Split Squat',sets:3,reps:'10',rest:'90s',note:'Each leg — slight forward lean, deep stretch through the front hip'},
+      {name:'Leg Extension',sets:3,reps:'15-20',rest:'60s',note:'Pause and squeeze at the top'},
+      {name:'Lying Leg Curl',sets:3,reps:'12-15',rest:'60s',note:'Hips pressed into the pad — go lighter if knees complain'},
+    ]
+  },
+  legsB:{ // hamstring focus
+    name:'LEGS',
+    main:[
+      {name:'Romanian Deadlift',sets:4,reps:'10-12',rest:'2 min',note:'Hips back, soft knees, bar close to the legs — stop when the hamstrings stop stretching'},
+      {name:'Leg Curl',sets:4,reps:'12-15',rest:'60s',note:'Seated or lying, full contraction'},
+      {name:'Leg Press',sets:3,reps:'12',rest:'90s',note:'Full ROM, do not lock knees at the top'},
+      {name:'Single-Leg Extension',sets:3,reps:'12-15',rest:'60s',note:'Each leg — fixes left/right imbalances'},
+    ]
+  },
+  shouldersA:{
     name:'SHOULDERS',
-    v1:[
-      {name:'Overhead Press (Barbell)',sets:4,reps:'6-8',rest:'2 min',note:'Strict form, lower to chin level'},
-      {name:'Lateral Raise',sets:4,reps:'12-15',rest:'60s',note:'Lead with elbows, slight bend in arm'},
-      {name:'Reverse Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt for 3D shoulder appearance'},
-      {name:'Cable Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Cable keeps tension at top through the full range — key for width'},
-      {name:'Face Pull',sets:3,reps:'15-20',rest:'45s',note:'Rope attachment, pull to face height with elbows high — rear delt and upper-back detail, plus healthy shoulder rotation'},
-    ],
-    v2:[
-      {name:'Dumbbell Shoulder Press',sets:4,reps:'8-10',rest:'90s',note:'Full ROM, bar path in front of face'},
-      {name:'Cable Lateral Raise',sets:4,reps:'15-20',rest:'45s',note:'Cable keeps tension at top, key for width'},
-      {name:'Bent-Over Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Rear delt refinement, control the movement'},
-      {name:'Machine Lateral Raise',sets:3,reps:'12-15',rest:'60s',note:'Fixed path keeps strict form under fatigue — pure mid-delt isolation'},
-      {name:'Upright Row',sets:3,reps:'10-12',rest:'60s',note:'Wide grip for delt emphasis not trap'},
-    ],
-    sec:[
-      {name:'Lateral Raise',sets:3,reps:'15',rest:'45s',note:'Medial delt width'},
-      {name:'Dumbbell Shoulder Press',sets:3,reps:'10-12',rest:'90s',note:'Shoulder volume, full ROM'},
-      {name:'Upright Row',sets:3,reps:'10-12',rest:'60s',note:'Wide grip for delt emphasis not trap'},
-      {name:'Reverse Fly',sets:3,reps:'15-20',rest:'45s',note:'Rear delt for 3D shoulder appearance'},
+    main:[
+      {name:'Seated Dumbbell Lateral Raise',sets:4,reps:'12-15',rest:'60s',note:'Seated for stability, lead with the elbows'},
+      {name:'Upright Row',sets:3,reps:'10-15',rest:'60s',note:'Wide grip, pull to lower chest — delts, not traps',ss:'shA'},
+      {name:'Cable Lateral Raise',sets:3,reps:'12-15',rest:'60s',note:'Constant tension through the top of the range',ss:'shA'},
+      {name:'Rear Delt Fly',sets:3,reps:'15-20',rest:'45s',note:'Squeeze shoulder blades at the top'},
+      {name:'Face Pull',sets:3,reps:'15-20',rest:'45s',note:'Rope to face height, elbows high — rear delts and shoulder health'},
+      {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM',ss:'fore'},
+      {name:'Reverse Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors and brachialis',ss:'fore'},
     ]
   },
+  shouldersB:{
+    name:'SHOULDERS',
+    main:[
+      {name:'Dumbbell Shoulder Press',sets:3,reps:'8-10',rest:'90s',note:'Full ROM, stop just short of lockout'},
+      {name:'Machine Lateral Raise',sets:4,reps:'12-15',rest:'60s',note:'Fixed path keeps form strict under fatigue'},
+      {name:'Bent-Over Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Rear delt — control the movement, no swinging',ss:'shB'},
+      {name:'Cable Lateral Raise',sets:3,reps:'15-20',rest:'45s',note:'Light and strict — finishing width work',ss:'shB'},
+      {name:'Behind-the-Back Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — bar behind hips, wrist only',ss:'foreB'},
+      {name:'Reverse Barbell Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors',ss:'foreB'},
+    ]
+  },
+  // Full arms day — only scheduled when arms earn one of the extra weekly sessions.
   arms:{
     name:'ARMS',
-    v1:[
-      {name:'Barbell Curl',sets:3,reps:'8-10',rest:'90s',note:'Full supination at top, no swinging'},
-      {name:'Incline Dumbbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Stretches long head, key for peak'},
-      {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM, control the negative',ss:'armsv1'},
-      {name:'Reverse Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors and brachialis — hands pronated, control the negative',ss:'armsv1'},
-      {name:'JM Press',sets:3,reps:'8-10',rest:'90s',note:'Barbell or EZ-bar, hybrid skull-crusher/close-grip press — elbows stay tucked and forward, heavy tricep overload with minimal chest involvement'},
-      {name:'Single Arm Cable Tricep Kickback',sets:3,reps:'12-15',rest:'60s',note:'Elbow pinned to your side, full extension and hard squeeze at the bottom'},
-      {name:'Skull Crushers',sets:3,reps:'10-12',rest:'60s',note:'EZ-bar, long head stretch for size'},
-    ],
-    v2:[
-      {name:'Cable Curl',sets:3,reps:'12-15',rest:'60s',note:'Constant tension throughout ROM'},
-      {name:'Overhead Tricep Extension',sets:4,reps:'10-12',rest:'60s',note:'Long head stretch, biggest tricep portion'},
-      {name:'Tricep Pushdown (Rope)',sets:3,reps:'12-15',rest:'60s',note:'Spread at bottom for lateral head'},
-      {name:'Diamond Push-Ups',sets:3,reps:'To Failure',rest:'60s',note:'Hands close together under chest, elbows tucked — hits all three tricep heads'},
-      {name:'Reverse Barbell Curl',sets:3,reps:'12-15',rest:'45s',note:'Overhand grip targets forearm extensors and upper arm tie-in'},
-      {name:'EZ-Bar Preacher Curl',sets:4,reps:'8-10',rest:'90s',note:'Full stretch at bottom, no cheating',ss:'armsv2'},
-      {name:'Behind-the-Back Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors isolated — bar behind hips, wrist only',ss:'armsv2'},
-    ],
-    sec:[
-      {name:'Barbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Bicep volume, full supination'},
-      {name:'Tricep Pushdown',sets:3,reps:'12-15',rest:'60s',note:'Tricep pump, full extension'},
+    main:[
+      {name:'Barbell Curl',sets:3,reps:'8-10',rest:'90s',note:'Full supination at top, no swinging',ss:'arm1'},
+      {name:'EZ-Bar Skull Crushers',sets:3,reps:'10-12',rest:'90s',note:'Long head stretch for size',ss:'arm1'},
+      {name:'Incline Dumbbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Stretches the long head — key for peak',ss:'arm2'},
+      {name:'Overhead Rope Tricep Extension',sets:3,reps:'12-15',rest:'60s',note:'Long head stretch overhead',ss:'arm2'},
+      {name:'Hammer Curl',sets:3,reps:'10-12',rest:'60s',note:'Brachialis and forearm thickness',ss:'arm3'},
+      {name:'Single-Arm Cable Tricep Kickback',sets:3,reps:'12-15',rest:'60s',note:'Elbow pinned, hard squeeze at full extension',ss:'arm3'},
+      {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM',ss:'arm4'},
+      {name:'Reverse Curl',sets:3,reps:'12-15',rest:'45s',note:'Forearm extensors',ss:'arm4'},
     ]
   },
-  legs:{
-    name:'LEGS',
-    v1:[
-      {name:'Barbell Back Squat',sets:4,reps:'6-8',rest:'3 min',note:'Below parallel, chest up, heels flat'},
-      {name:'Bulgarian Split Squat',sets:3,reps:'10-12',rest:'90s',note:'Each leg, hip hinge forward slightly, deep stretch through the front hip'},
-      {name:'Leg Press',sets:3,reps:'10-12',rest:'90s',note:'Full ROM, do not lock knees at top'},
-      {name:'Leg Curl',sets:3,reps:'12-15',rest:'60s',note:'Full contraction, squeeze at top'},
-      {name:'Leg Extension',sets:3,reps:'12-15',rest:'60s',note:'Teardrop focus, squeeze hard'},
-    ],
-    v2:[
-      {name:'Front Squat or Hack Squat',sets:4,reps:'8-10',rest:'2 min',note:'Quad sweep emphasis, full depth'},
-      {name:'Bulgarian Split Squat',sets:3,reps:'10-12',rest:'90s',note:'Each leg, hip hinge forward slightly'},
-      {name:'Stiff Leg Deadlift',sets:3,reps:'12-15',rest:'90s',note:'Straight-ish legs, hip hinge back, feel the hamstring stretch at the bottom'},
-      {name:'Walking Lunge',sets:3,reps:'12-15',rest:'60s',note:'Long stride, full hip extension at top'},
-      {name:'Leg Extension',sets:3,reps:'15-20',rest:'45s',note:'Quad definition and detail'},
-    ],
-    sec:[
-      {name:'Leg Press',sets:3,reps:'12-15',rest:'90s',note:'Quad volume, full ROM'},
-      {name:'Leg Curl',sets:3,reps:'12-15',rest:'60s',note:'Hamstring detail'},
+  // Arm block added onto a shoulders day when arms are the next-weakest area but didn't earn a
+  // dedicated session.
+  armsAddon:{
+    name:'ARMS',
+    main:[
+      {name:'EZ-Bar Preacher Curl',sets:3,reps:'8-10',rest:'60s',note:'Full stretch at bottom, no cheating',ss:'armAdd1'},
+      {name:'Rope Pullover Triceps Extension',sets:3,reps:'8-12',rest:'60s',note:'Long head stretch, squeeze at full extension',ss:'armAdd1'},
+      {name:'Incline Dumbbell Curl',sets:3,reps:'10-12',rest:'60s',note:'Long head stretch',ss:'armAdd2'},
+      {name:'Single-Arm Cable Tricep Kickback',sets:3,reps:'12-15',rest:'60s',note:'Elbow pinned, hard squeeze',ss:'armAdd2'},
     ]
   }
 };
-const CALF_EXTRA={name:'Standing Calf Raise',sets:5,reps:'15',rest:'45s',note:'Full stretch at bottom on every rep — do not bounce',isCalf:true};
+const CALF_EXTRA={name:'Standing Calf Raise',sets:4,reps:'15-20',rest:'45s',note:'Do these first — full stretch at the bottom on every rep, no bouncing',isCalf:true};
 const NECK_EXTRA_EXT={name:'Neck Extension (plate)',sets:3,reps:'15-20',rest:'45s',note:'Plate on back of head, slow controlled movement — builds neck thickness'};
 const NECK_EXTRA_FLEX={name:'Neck Flexion (plate)',sets:3,reps:'15-20',rest:'45s',note:'Plate on forehead, chin to chest — front of neck and deep flexors'};
 
-// Fixed Arms/Shoulders combo-day routine — shoulders first, then arms — used verbatim any time
-// the schedule pairs arms and shoulders together, instead of the generic slice-of-primary +
-// secondary-of-coverage combining logic used for every other combo pairing.
-const ARMS_SHOULDERS_COMBO=[
-  {name:'Seated Dumbbell Lateral Raise',sets:4,reps:'10-15',rest:'60s',note:'Seated for stability, lead with elbows, slight bend in the arm'},
-  {name:'Upright Row',sets:3,reps:'10-15',rest:'60s',note:'Wide grip for delt emphasis not trap',ss:'asCombo'},
-  {name:'Cable Lateral Raise',sets:3,reps:'10-15',rest:'45s',note:'Cable keeps tension at top — paired with upright row for delt finishing volume',ss:'asCombo'},
-  {name:'Rear Delt Fly',sets:3,reps:'10-15',rest:'45s',note:'Squeeze shoulder blades together at the top — rear delt and upper-back detail'},
-  {name:'EZ-Bar Preacher Curl',sets:4,reps:'8-10',rest:'90s',note:'Full stretch at bottom, no cheating'},
-  {name:'Rope Pullover Triceps Extension',sets:4,reps:'8-12',rest:'60s',note:'Long head stretch overhead into the pullover path — control the eccentric, squeeze at full extension'},
-  {name:'Seated EZ-Bar Wrist Curl',sets:3,reps:'15-20',rest:'45s',note:'Forearm flexors — full ROM, control the negative'},
-];
+var GROUP_LABELS={chest:'Chest',back:'Back',shoulders:'Shoulders',arms:'Arms',legs:'Legs',waist:'Waist',calves:'Calves',neck:'Neck'};
 
 function getWorkoutScheduleData(){
   if(!selBB||!userM||!userM.height) return null;
@@ -2658,12 +2658,9 @@ function getWorkoutScheduleData(){
   allGaps.sort(function(a,b){return a.ratio-b.ratio;});
   var top3Groups=allGaps.slice(0,3).map(function(g){return g.group;});
   var specialCalves=top3Groups.indexOf('calves')>=0;
-  var specialWaist=top3Groups.indexOf('waist')>=0;
 
-  // Neck never competes for a real priority training slot (it's excluded from mainGaps below),
-  // but it always gets added on top of whatever plan gets built: 0x/week if the neck measurement
-  // already meets or beats target, 2x/week if neck ranks in the overall bottom 3 measurements,
-  // otherwise a baseline 1x/week — purely additive, never displacing another exercise or day.
+  // Neck: additive only, never takes a training slot. 0x if at/above target, 2x if it's in the
+  // overall bottom 3, otherwise 1x.
   var neckFreq=0,neckStatus='nodata';
   if(userM.neck&&target.neck&&h&&th){
     var neckTAdj=(target.neck/th)*h;
@@ -2672,107 +2669,66 @@ function getWorkoutScheduleData(){
     else{neckStatus='deficient';neckFreq=1;}
   }
 
-  // Waist competes directly against chest/arms/shoulders/legs for a spot in the top 3 deficient
-  // "muscle groups" — but waist doesn't get a lifting day. When it makes the top 3, only the
-  // other 2 real muscle groups get trained twice a week; waist's twice-a-week slot becomes a
-  // dedicated cardio session instead (on top of the existing pre-lifting cardio/5-day cardio
-  // bump below), since trimming a waist is a cardio/diet job, not a muscle to train.
-  var mainGaps=allGaps.filter(function(g){return ['chest','arms','shoulders','legs','waist'].indexOf(g.group)>=0;});
-  var top3=mainGaps.slice(0,3);
-  var waistIsPriority=top3.some(function(g){return g.group==='waist';});
-  if(waistIsPriority) specialWaist=true;
-  var priorityGroups=top3.filter(function(g){return g.group!=='waist';}).map(function(g){return g.group;});
-  var allMain=['chest','back','shoulders','arms','legs'];
-  var targetRealSlots=waistIsPriority?2:3;
-  while(priorityGroups.length<targetRealSlots){
-    var picked=null;
-    for(var i=0;i<allMain.length;i++){
-      var g=allMain[i];
-      if(priorityGroups.indexOf(g)>=0) continue;
-      // 'back' is never a standalone fallback slot when chest is already a priority group —
-      // chest's combo already trains back twice a week, so picking it again here would be
-      // redundant and would let it soak up a once-a-week coverage muscle for no reason.
-      if(g==='back' && priorityGroups.indexOf('chest')>=0) continue;
-      picked=g; break;
-    }
-    if(!picked) break; // safety net; shouldn't happen with 5 candidate groups and <=3 slots
-    priorityGroups.push(picked);
-  }
-  // Waist always occupies the 3rd schedule slot (never displaces chest/back's combo slot),
-  // which buildScheduleDays turns into 2 dedicated cardio days instead of a lifting day.
-  if(waistIsPriority) priorityGroups.push('waist');
-  // The chest tape measurement is really a torso-girth reading (chest + back together), so
-  // whenever chest is a priority group, back trains alongside it on both of its sessions
-  // instead of only getting a once-a-week secondary/coverage slot. When chest ISN'T a priority,
-  // chest and back both fall to the once-a-week coverage queue below, which always hands them
-  // to two different days (never the same day), so they end up as separate workout days.
-  var chestBackCombo=priorityGroups.indexOf('chest')>=0;
-  var nonPriorityGroups=allMain.filter(function(g){
-    if(priorityGroups.indexOf(g)>=0) return false;
-    if(chestBackCombo && g==='back') return false;
-    return true;
+  // Chest decides the shape of the week. The chest tape reading is really chest + back girth, so
+  // back follows chest. Within 3% of target counts as meeting it (same tolerance as waist). With no
+  // chest measurement we assume it's lagging — that's true for most users.
+  var chestGap=null;
+  allGaps.forEach(function(g){if(g.group==='chest') chestGap=g;});
+  var chestWeak=userM.chest?!!(chestGap&&chestGap.ratio<0.97):true;
+
+  // The remaining areas compete for the spare session(s): 1 if chest/back are taking the doubled
+  // slot, 2 if chest/back are fine. Waist competes too, but its session becomes cardio.
+  var ranked=allGaps.filter(function(g){return ['legs','shoulders','arms','waist'].indexOf(g.group)>=0;});
+  var rankedGroups=ranked.map(function(g){return g.group;});
+  var flexCount=chestWeak?1:2;
+  var flexGroups=rankedGroups.slice(0,flexCount);
+  ['legs','shoulders','arms'].forEach(function(g){
+    if(flexGroups.length<flexCount&&flexGroups.indexOf(g)<0) flexGroups.push(g);
   });
-  var top3Labels=allGaps.slice(0,3).map(function(g){return g.label;});
-  var mainGapData=top3.map(function(g){return {label:g.label,group:g.group,pct:Math.round((1-g.ratio)*100),amt:g.amt};});
+  // Arms ride along on a shoulders day when they're the next-weakest area after the flex picks.
+  var armsAddon=flexGroups.indexOf('arms')<0&&rankedGroups[flexCount]==='arms';
+  var waistIsPriority=flexGroups.indexOf('waist')>=0;
+  var specialWaist=waistIsPriority||top3Groups.indexOf('waist')>=0;
+
+  // Badges: the areas that get trained twice this week.
+  var mainGapData=[];
+  if(chestWeak) mainGapData.push(chestGap?{label:'Chest & Back',group:'chest',pct:Math.round((1-chestGap.ratio)*100),amt:chestGap.amt}:{label:'Chest & Back',group:'chest',pct:0,amt:0});
+  flexGroups.forEach(function(g){
+    var gap=null; ranked.forEach(function(r){if(r.group===g) gap=r;});
+    if(gap) mainGapData.push({label:gap.label,group:g,pct:Math.round((1-gap.ratio)*100),amt:gap.amt});
+    else mainGapData.push({label:GROUP_LABELS[g],group:g,pct:0,amt:0});
+  });
+
   return {
-    priorityGroups:priorityGroups,
-    nonPriorityGroups:nonPriorityGroups,
+    chestWeak:chestWeak,
+    flexGroups:flexGroups,
+    armsAddon:armsAddon,
+    priorityGroups:(chestWeak?['chest','back']:[]).concat(flexGroups),
     specialCalves:specialCalves,
     specialWaist:specialWaist,
-    chestBackCombo:chestBackCombo,
     waistIsPriority:waistIsPriority,
     neckFreq:neckFreq,
     neckStatus:neckStatus,
-    top3Labels:top3Labels,
+    top3Labels:allGaps.slice(0,3).map(function(g){return g.label;}),
     mainGapData:mainGapData
   };
 }
 
 function buildScheduleDays(data){
-  var P=data.priorityGroups;
-  var NP=data.nonPriorityGroups.slice(); // queue of groups still owed a once-a-week coverage slot
   var sc=data.specialCalves,sw=data.specialWaist;
-  var dnames={chest:'CHEST',back:'BACK',shoulders:'SHOULDERS',arms:'ARMS',legs:'LEGS',waist:'WAIST'};
-  var days=[];
-  function exSet(group,ver){
-    return EXERCISE_LIBRARY[group][ver].map(function(e){return {name:e.name,sets:e.sets,reps:e.reps,rest:e.rest,note:e.note,isPrimary:true,isCalf:false,ss:e.ss||null};});
-  }
-  function secSet(group){
-    if(!EXERCISE_LIBRARY[group]) return [];
-    return EXERCISE_LIBRARY[group].sec.map(function(e){return {name:e.name,sets:e.sets,reps:e.reps,rest:e.rest,note:e.note,isPrimary:false,isCalf:false,ss:e.ss||null};});
+  var flex=data.flexGroups;
+  function isFlex(g){return flex.indexOf(g)>=0;}
+  function blk(key){
+    return EXERCISE_LIBRARY[key].main.map(function(e){return {name:e.name,sets:e.sets,reps:e.reps,rest:e.rest,note:e.note,isPrimary:true,isCalf:false,ss:e.ss||null};});
   }
   function calfEx(){
-    return {name:CALF_EXTRA.name,sets:CALF_EXTRA.sets,reps:CALF_EXTRA.reps,rest:CALF_EXTRA.rest,note:CALF_EXTRA.note,isPrimary:true,isCalf:true};
+    return {name:CALF_EXTRA.name,sets:sc?5:CALF_EXTRA.sets,reps:CALF_EXTRA.reps,rest:CALF_EXTRA.rest,note:CALF_EXTRA.note,isPrimary:true,isCalf:true};
   }
   function neckEx(base){
     return {name:base.name,sets:base.sets,reps:base.reps,rest:base.rest,note:base.note,isPrimary:true,isCalf:false};
   }
-  function cardioDayEx(){
-    return [{name:'Cardio Session — Waist Focus',sets:1,reps:'30–40 min',rest:'--',note:'Moderate-to-brisk steady-state cardio — pick any option from the cardio menu below. No lifting today; this is one of your two weekly waist-focused sessions.'}];
-  }
-  function nextNP(){return NP.length?NP.shift():null;}
-  // Arms and shoulders pair well together, so whenever one of them needs a once-a-week coverage
-  // partner, pull the other out of the queue by name first (if it happens to be waiting in there)
-  // instead of strict FIFO order. Falls back to the plain FIFO queue otherwise.
-  function nextNPFor(group){
-    var pref=group==='shoulders'?'arms':(group==='arms'?'shoulders':null);
-    if(pref){
-      var idx=NP.indexOf(pref);
-      if(idx>=0) return NP.splice(idx,1)[0];
-    }
-    return nextNP();
-  }
-  function isArmsShoulders(g1,g2){
-    return (g1==='arms'&&g2==='shoulders')||(g1==='shoulders'&&g2==='arms');
-  }
-  // Fixed replacement for the arms+shoulders combo day — used verbatim in place of the generic
-  // slice-of-primary + secondary-of-coverage combining logic whenever arms and shoulders pair up.
-  function armsShouldersComboEx(){
-    return ARMS_SHOULDERS_COMBO.map(function(e){return {name:e.name,sets:e.sets,reps:e.reps,rest:e.rest,note:e.note,isPrimary:true,isCalf:false,ss:e.ss||null};});
-  }
-  // Duration estimate shared by the arms+shoulders time trim below and the neck-placement step
-  // further down — ~40s per working set (30s for calf), ~75s transition between exercises (skipped
-  // when the current exercise is superset-paired with the next), real rest times parsed per exercise.
+  // ~40s per working set (30s calves), ~75s transition between exercises (none inside a superset),
+  // real rest times parsed per exercise.
   function estSeconds(exList){
     var total=0;
     for(var i=0;i<exList.length;i++){
@@ -2789,145 +2745,124 @@ function buildScheduleDays(data){
         else if(mSec) restSec=Math.round(parseFloat(mSec[1]));
       }
       var nextE=exList[i+1];
-      var isSSPair=e.ss&&nextE&&nextE.ss===e.ss;
-      if(isSSPair){
+      if(e.ss&&nextE&&nextE.ss===e.ss){
         total+=rounds*(setTime+setTime)+(rounds-1)*restSec+restSec;
-        i++; // consumed the paired exercise
+        i++;
         continue;
       }
       total+=rounds*setTime+(rounds-1)*restSec;
-      if(i<exList.length-1) total+=75; // transition to next exercise
+      if(i<exList.length-1) total+=75;
     }
     return total;
   }
-  // Arms+shoulders is the one combo we actively time-budget: trim secondary sets, then whole
-  // secondary exercises (never the calf-extra bonus, never splitting a superset pair), until the
-  // day's estimated duration fits inside the ~60 minute ceiling.
-  function trimForTime(exList,maxSec){
-    var arr=exList.slice();
-    var guard=0;
-    while(estSeconds(arr)>maxSec && guard<50){
-      guard++;
-      var reduced=false;
-      for(var i=arr.length-1;i>=0;i--){
-        var e=arr[i];
-        if(e.ss||e.isCalf) continue;
-        if(e.sets>2){ e.sets=e.sets-1; reduced=true; break; }
+
+  // Session builders
+  function chestTri(tag){return {label:'CHEST + TRICEPS',tag:tag,exercises:blk('chest').concat(blk('triceps')),cardio:sw};}
+  function backBi(tag){
+    var ex=blk('back').concat(blk('biceps'));
+    if(sc) ex.unshift(calfEx());
+    return {label:'BACK + BICEPS',tag:tag,exercises:ex,cardio:sw};
+  }
+  function chestBack(tag){return {label:'CHEST + BACK',tag:tag,exercises:blk('chestBack'),cardio:sw};}
+  function legsA(tag){return {label:'LEGS — QUAD FOCUS',tag:tag,exercises:[calfEx()].concat(blk('legsA')),cardio:sw};}
+  function legsB(tag){return {label:'LEGS — HAMSTRING FOCUS',tag:tag,exercises:[calfEx()].concat(blk('legsB')),cardio:sw};}
+  function shouldersA(tag){return {label:'SHOULDERS',tag:tag,exercises:[calfEx()].concat(blk('shouldersA')),cardio:sw,isShoulders:true};}
+  function shouldersB(tag){return {label:'SHOULDERS',tag:tag,exercises:blk('shouldersB'),cardio:sw,isShoulders:true};}
+  function armsDay(tag){return {label:'ARMS',tag:tag,exercises:blk('arms'),cardio:sw};}
+  function cardioDay(tag){
+    return {label:'WAIST',tag:tag,cardio:false,isCardioFocus:true,exercises:[{name:'Cardio Session — Waist Focus',sets:1,reps:'30–40 min',rest:'--',note:'Moderate-to-brisk steady-state cardio — pick any option from the cardio menu below. No lifting today.'}]};
+  }
+  function flexSession(g){
+    if(g==='legs') return legsB('PRIORITY — SESSION 2');
+    if(g==='shoulders') return shouldersB('PRIORITY — SESSION 2');
+    if(g==='arms') return armsDay('ARMS PRIORITY — DEDICATED SESSION');
+    return cardioDay('WAIST PRIORITY — CARDIO');
+  }
+  function firstTag(g){return isFlex(g)?'PRIORITY — SESSION 1':'COVERAGE — 1x / WEEK';}
+
+  var seq=[];
+  if(data.chestWeak){
+    // Chest & back 2x: their own days early in the week, then a short combined day on Day 5.
+    // The one spare session lands on Day 6 — that spacing works for legs, shoulders, arms or waist.
+    seq.push(chestTri('CHEST & BACK PRIORITY — CHEST SESSION'));
+    seq.push(backBi('CHEST & BACK PRIORITY — BACK SESSION'));
+    seq.push(legsA(firstTag('legs')));
+    seq.push(shouldersA(firstTag('shoulders')));
+    seq.push(chestBack('CHEST & BACK PRIORITY — 2ND HIT, NO ARMS'));
+    seq.push(flexSession(flex[0]));
+  } else {
+    // Chest & back 1x each (never back-to-back), two spare sessions on Days 5 and 6.
+    seq.push(legsA(firstTag('legs')));
+    seq.push(backBi('COVERAGE — 1x / WEEK'));
+    seq.push(shouldersA(firstTag('shoulders')));
+    seq.push(chestTri('COVERAGE — 1x / WEEK'));
+    // Legs and waist prefer Day 5 (3+ days after Legs A); shoulders and arms prefer Day 6 (keeps
+    // them off the day right after chest/triceps). When both want the same day, legs and
+    // shoulders take Day 5.
+    var pref={legs:5,waist:5,shoulders:6,arms:6};
+    var a=flex[0],b=flex[1],d5,d6;
+    if(pref[a]!==pref[b]){d5=pref[a]===5?a:b; d6=d5===a?b:a;}
+    else if(pref[a]===5){d5=(a==='legs')?a:b; d6=d5===a?b:a;}
+    else{d5=(a==='shoulders')?a:b; d6=d5===a?b:a;}
+    seq.push(flexSession(d5));
+    seq.push(flexSession(d6));
+  }
+
+  // Arm add-on goes on the last shoulders session of the week.
+  if(data.armsAddon){
+    for(var si=seq.length-1;si>=0;si--){
+      if(seq[si].isShoulders){
+        // keep the session from running long: drop the wrist curl and keep a single reverse-grip
+        // EZ-bar curl (biceps + forearms in one movement) ahead of the arm block
+        var trimmed=[];
+        seq[si].exercises.forEach(function(e){
+          if(e.ss!=='fore'&&e.ss!=='foreB'){trimmed.push(e);return;}
+          if(/wrist curl/i.test(e.name)) return;
+          trimmed.push({name:'Reverse-Grip EZ-Bar Curl',sets:3,reps:'12-15',rest:'60s',note:'Overhand grip — hits biceps, brachialis and forearms in one movement',isPrimary:true,isCalf:false,ss:null});
+        });
+        seq[si].exercises=trimmed.concat(blk('armsAddon'));
+        seq[si].label='SHOULDERS + ARMS';
+        break;
       }
-      if(reduced) continue;
-      var dropped=false;
-      for(var j=arr.length-1;j>=0;j--){
-        if(arr.length<=3) break;
-        var e2=arr[j];
-        if(e2.isCalf) continue;
-        if(e2.ss){
-          var pairIdxs=[];
-          for(var k=0;k<arr.length;k++){ if(arr[k].ss===e2.ss) pairIdxs.push(k); }
-          if(pairIdxs.length===2){ arr.splice(pairIdxs[0],2); dropped=true; break; }
-        } else {
-          arr.splice(j,1); dropped=true; break;
-        }
-      }
-      if(!dropped) break;
-    }
-    return arr;
-  }
-  var wp=data.waistIsPriority; // waist always sits in P[2] and turns that slot into 2 cardio days
-
-  // Session 1 (v1) — one day per priority group. Whichever slot holds 'chest' becomes a
-  // combined CHEST + BACK day, since the chest measurement is really a chest/back girth reading.
-  // Legs never gets a coverage partner attached — leg day stays on its own, since it's demanding
-  // enough by itself. When waist is a priority, there are only 2 real muscle groups, so their v1
-  // sessions also get a once-a-week coverage muscle attached (same NP queue used for v2 below) to
-  // make sure every non-priority muscle still gets its weekly attention.
-  var d1ex,d1lbl;
-  if(P[0]==='chest'){d1ex=exSet(P[0],'v1').concat(exSet('back','v1'));d1lbl=dnames[P[0]]+' + '+dnames.back;}
-  else if(P[0]==='legs'){d1ex=exSet(P[0],'v1');d1lbl=dnames[P[0]];}
-  else{
-    d1ex=exSet(P[0],'v1');d1lbl=dnames[P[0]];
-    if(wp){
-      var npv1a=nextNPFor(P[0]);
-      if(npv1a){
-        d1ex=isArmsShoulders(P[0],npv1a)?armsShouldersComboEx():d1ex.slice(0,3).concat(secSet(npv1a));
-        d1lbl=d1lbl+' + '+dnames[npv1a];
-      }
-    }
-  }
-  days.push({day:'Day 1',label:d1lbl,tag:'PRIORITY — SESSION 1',exercises:d1ex,cardio:sw});
-
-  var d2ex,d2lbl;
-  if(P[1]==='chest'){d2ex=exSet(P[1],'v1').concat(exSet('back','v1'));d2lbl=dnames[P[1]]+' + '+dnames.back;}
-  else if(P[1]==='legs'){d2ex=exSet(P[1],'v1');d2lbl=dnames[P[1]];}
-  else{
-    d2ex=exSet(P[1],'v1');d2lbl=dnames[P[1]];
-    if(wp){
-      var npv1b=nextNPFor(P[1]);
-      if(npv1b){
-        d2ex=isArmsShoulders(P[1],npv1b)?armsShouldersComboEx():d2ex.slice(0,3).concat(secSet(npv1b));
-        d2lbl=d2lbl+' + '+dnames[npv1b];
-      }
-    }
-  }
-  if(sc) d2ex.push(calfEx());
-  days.push({day:'Day 2',label:d2lbl,tag:'PRIORITY — SESSION 1',exercises:d2ex,cardio:sw});
-
-  var d3ex,d3lbl,d3tag='PRIORITY — SESSION 1',d3cardio=sw,d3isCardioFocus=false;
-  if(P[2]==='waist'){d3ex=cardioDayEx();d3lbl=dnames.waist;d3tag='WAIST PRIORITY — CARDIO 1';d3cardio=false;d3isCardioFocus=true;}
-  else{d3ex=exSet(P[2],'v1');d3lbl=dnames[P[2]];if(P[2]==='chest'){d3ex=d3ex.concat(exSet('back','v1'));d3lbl=d3lbl+' + '+dnames.back;}}
-  days.push({day:'Day 3',label:d3lbl,tag:d3tag,exercises:d3ex,cardio:d3cardio,isCardioFocus:d3isCardioFocus});
-
-  // Session 2 (v2) — same combo rule applies, plus the same legs-stays-alone rule. Non-combo,
-  // non-leg priority slots keep pairing with a once-a-week coverage muscle drawn from the NP queue
-  // (back is excluded from that queue whenever chest is a priority, since back is already fully
-  // covered via the combo days above).
-  var d4ex,d4lbl;
-  if(P[0]==='chest'){d4ex=exSet(P[0],'v2').concat(exSet('back','v2'));d4lbl=dnames[P[0]]+' + '+dnames.back;}
-  else if(P[0]==='legs'){d4ex=exSet(P[0],'v2');d4lbl=dnames[P[0]];}
-  else{
-    var np0=nextNPFor(P[0]);
-    d4ex=np0?(isArmsShoulders(P[0],np0)?armsShouldersComboEx():exSet(P[0],'v2').slice(0,3).concat(secSet(np0))):exSet(P[0],'v2');
-    d4lbl=np0?dnames[P[0]]+' + '+dnames[np0]:dnames[P[0]];
-  }
-  if(sc) d4ex.push(calfEx());
-  days.push({day:'Day 4',label:d4lbl,tag:'PRIORITY — SESSION 2',exercises:d4ex,cardio:sw,isCardioFocus:false});
-
-  var d5ex,d5lbl;
-  if(P[1]==='chest'){d5ex=exSet(P[1],'v2').concat(exSet('back','v2'));d5lbl=dnames[P[1]]+' + '+dnames.back;}
-  else if(P[1]==='legs'){d5ex=exSet(P[1],'v2');d5lbl=dnames[P[1]];}
-  else{
-    var np1=nextNPFor(P[1]);
-    d5ex=np1?(isArmsShoulders(P[1],np1)?armsShouldersComboEx():exSet(P[1],'v2').slice(0,3).concat(secSet(np1))):exSet(P[1],'v2');
-    d5lbl=np1?dnames[P[1]]+' + '+dnames[np1]:dnames[P[1]];
-  }
-  days.push({day:'Day 5',label:d5lbl,tag:'PRIORITY — SESSION 2',exercises:d5ex,cardio:sw});
-
-  var d6ex,d6lbl,d6tag='PRIORITY — SESSION 2',d6cardio=sw,d6isCardioFocus=false;
-  if(P[2]==='waist'){d6ex=cardioDayEx();d6lbl=dnames.waist;d6tag='WAIST PRIORITY — CARDIO 2';d6cardio=false;d6isCardioFocus=true;}
-  else if(P[2]==='chest'){d6ex=exSet(P[2],'v2').concat(exSet('back','v2'));d6lbl=dnames[P[2]]+' + '+dnames.back;}
-  else if(P[2]==='legs'){d6ex=exSet(P[2],'v2');d6lbl=dnames[P[2]];}
-  else{
-    var np2=nextNPFor(P[2]);
-    d6ex=exSet(P[2],'v2');d6lbl=dnames[P[2]];
-    if(np2){
-      d6ex=isArmsShoulders(P[2],np2)?armsShouldersComboEx():d6ex.slice(0,3).concat(secSet(np2));
-      d6lbl=dnames[P[2]]+' + '+dnames[np2];
     }
   }
-  if(sc&&P[2]!=='waist') d6ex.push(calfEx());
-  days.push({day:'Day 6',label:d6lbl,tag:d6tag,exercises:d6ex,cardio:d6cardio,isCardioFocus:d6isCardioFocus});
 
-  // Neck bonus placement: instead of fixed slots, drop the neck exercise(s) onto whichever
-  // training day(s) currently have the LOWEST estimated duration, since tacking another exercise
-  // onto an already-long day pushes it further past the 45-60 min budget. Cardio-focus (waist)
-  // days never lift, so they're excluded from candidacy.
+  var days=seq.map(function(d,i){d.day='Day '+(i+1); return d;});
+
+  // Neck goes on the shortest lifting day(s).
   if(data.neckFreq>=1){
     var candidates=days.filter(function(d){return !d.isCardioFocus;});
-    candidates.sort(function(a,b){return estSeconds(a.exercises)-estSeconds(b.exercises);});
+    candidates.sort(function(x,y){return estSeconds(x.exercises)-estSeconds(y.exercises);});
     if(candidates[0]) candidates[0].exercises.push(neckEx(NECK_EXTRA_EXT));
     if(data.neckFreq>=2 && candidates[1]) candidates[1].exercises.push(neckEx(NECK_EXTRA_FLEX));
   }
-
+  days.forEach(function(d){d.estMin=Math.round(estSeconds(d.exercises)/60);});
   return days;
+}
+
+// Plain-language explanation of how this week was built — shared by the on-screen plan and the PDF.
+function workoutPlanIntro(data,targetRef){
+  var t='Here is your specific program tailored to get you closer to '+targetRef+'.';
+  function joinAnd(arr){return arr.length<=1?arr.join(''):arr.slice(0,-1).join(', ')+' and '+arr[arr.length-1];}
+  var flexLift=data.flexGroups.filter(function(g){return g!=='waist';}).map(function(g){return GROUP_LABELS[g].toLowerCase();});
+  if(data.chestWeak){
+    t+=' Your chest is one of your biggest gaps, and since a chest tape reading reflects chest and back girth together, chest and back are each trained twice per week — once on their own day (chest with triceps, back with biceps) and once together on a shorter combined chest + back day with no arm work.';
+  } else {
+    t+=' Your chest measurement already meets your target, so chest and back are each trained once per week to maintain them, freeing up two extra sessions for your weaker areas.';
+  }
+  var flexNonArms=flexLift.filter(function(g){return g!=='arms';});
+  if(flexNonArms.length) t+=' Your '+joinAnd(flexNonArms)+' '+(flexNonArms.length>1?'each get':'get')+' a second dedicated session this week.';
+  if(flexLift.indexOf('arms')>=0) t+=' Arms are one of your biggest gaps, so they get their own dedicated arms day on top of the biceps and triceps work from your back and chest days.';
+  if(data.waistIsPriority) t+=' Your waist also ranks among your biggest gaps, so one of your extra sessions is a dedicated cardio day instead of lifting — trimming your waist comes primarily from cardio and diet.';
+  if(data.armsAddon) t+=' Arms are your next weakest area, so an arm block has been added to your shoulders day on top of the biceps and triceps work from your back and chest days.';
+  else if(data.flexGroups.indexOf('arms')<0) t+=' There\'s no separate arms day — biceps and triceps are trained on your back and chest days.';
+  t+=' Calves are done at the start of every leg and shoulder day.';
+  if(data.specialCalves) t+=' Since calves are one of your top priority areas, the calf sets have been bumped up and added to your back day too.';
+  if(data.specialWaist) t+=' Since reducing your waist is a priority, start every lifting session with 10–15 minutes of cardio.';
+  if(data.neckStatus==='good') t+=' Your neck measurement already meets your target, so no dedicated neck work has been added this week.';
+  else if(data.neckStatus==='bottom3') t+=' Neck is one of your most lagging measurements, so neck work has been added twice this week — extension and flexion — on top of your regular training.';
+  else if(data.neckStatus==='deficient') t+=' A neck extension exercise has been added once this week to keep neck development on track.';
+  return t;
 }
 
 function buildWorkoutTab(){
@@ -2948,14 +2883,7 @@ function buildWorkoutTab(){
   if(phil.quote) h+='<div class="wrk-quote">'+phil.quote+'</div>';
   var isNonBB=['hollywood','natural'].indexOf(BB_CATS[selBB]||'')>=0;
   var targetRef=isNonBB?'your target physique':'a physique like '+bbName;
-  h+='<div class="wrk-approach">Here is your specific program tailored to get you closer to '+targetRef+'. Since your biggest muscle group weaknesses are '+defStr+', we will be focusing on building those. Your top 3 deficient muscle groups will each be trained twice per week, while all other muscle groups are covered once per week to maintain full-body development.';
-  if(data.chestBackCombo) h+=' Since your chest measurement reflects chest and back girth together, chest and back are trained on the same days so both keep pace with each other.';
-  if(data.waistIsPriority) h+=' Your waist ranks among your top 3 deficiencies, so only 2 real muscle groups get the twice-weekly treatment — the 3rd slot is dedicated cardio instead of a lifting day, since trimming your waist comes primarily from cardio and diet rather than any single exercise.';
-  if(data.specialCalves) h+=' Since calves are one of your top priority areas, a dedicated calf exercise has been added every other training day.';
-  if(data.specialWaist) h+=' Since reducing your waist is a priority, start every training session with 10–15 minutes of cardio before lifting.';
-  if(data.neckStatus==='good') h+=' Your neck measurement already meets your target, so no dedicated neck work has been added this week.';
-  else if(data.neckStatus==='bottom3') h+=' Neck is one of your most lagging measurements, so neck work has been added twice this week — extension and flexion — on top of your regular training.';
-  else if(data.neckStatus==='deficient') h+=' A neck extension exercise has been added once this week to keep neck development on track.';
+  h+='<div class="wrk-approach">'+workoutPlanIntro(data,targetRef);
   h+='</div>';
   if(data.mainGapData.length){
     h+='<div style="font-size:10px;font-weight:700;font-family:var(--mono);color:var(--txt2);letter-spacing:.4px;margin-top:12px;margin-bottom:6px">YOUR PRIORITY MUSCLE GROUPS — TRAINED TWICE PER WEEK</div>';
@@ -2963,7 +2891,7 @@ function buildWorkoutTab(){
     data.mainGapData.forEach(function(g){
       var gSign=g.group==='waist'?'−':'+';
       var gAmtStr=g.amt?gSign+fmtU(g.amt)+', ':'';
-      h+='<div class="wrk-pri-badge">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+' <span style="opacity:.7">('+gAmtStr+'+'+g.pct+'% to close gap)</span></div>';
+      h+='<div class="wrk-pri-badge">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+(g.pct||g.amt?' <span style="opacity:.7">('+gAmtStr+'+'+g.pct+'% to close gap)</span>':'')+'</div>';
     });
     h+='</div>';
   }
@@ -3114,21 +3042,14 @@ function downloadWorkoutPDF(){
     data.mainGapData.forEach(function(g){
       var gSign=g.group==='waist'?'−':'+';
       var gAmtStr=g.amt?gSign+fmtU(g.amt)+', ':'';
-      priBoxHtml+='<div style="background:rgba(245,164,35,.12);border:1px solid rgba(245,164,35,.4);padding:4px 10px;border-radius:3px;font-family:Courier New,monospace;font-size:10px;font-weight:700;color:#f5a623;letter-spacing:.3px">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+' '+gAmtStr+'+'+g.pct+'%</div>';
+      priBoxHtml+='<div style="background:rgba(245,164,35,.12);border:1px solid rgba(245,164,35,.4);padding:4px 10px;border-radius:3px;font-family:Courier New,monospace;font-size:10px;font-weight:700;color:#f5a623;letter-spacing:.3px">'+(g.group==='waist'?'▼':'▲')+' '+g.label.toUpperCase()+(g.pct||g.amt?' '+gAmtStr+'+'+g.pct+'%':'')+'</div>';
     });
     priBoxHtml+='</div></div>';
   }
   var qHtml=phil.quote?'<div style="background:#080f1a;border:1px solid #1c3048;border-left:3px solid #3de8f8;border-radius:0 6px 6px 0;padding:10px 16px;margin-bottom:10px"><div style="font-size:12px;font-style:italic;color:#8aaec8;line-height:1.5">'+phil.quote+'</div></div>':'';
   var dHtml='<div style="background:#080f1a;border:1px solid #1c3048;border-radius:6px;padding:10px 16px;margin-bottom:18px">';
   dHtml+='<div style="font-family:Courier New,monospace;font-size:8px;font-weight:700;color:#3a5a7a;letter-spacing:1.5px;margin-bottom:5px">YOUR PERSONALIZED PROTOCOL</div>';
-  dHtml+='<p style="font-size:10.5px;color:#7a9ab8;line-height:1.6">This program is tailored to get you closer to '+targetRefPdf+'. Since your biggest muscle group weaknesses are '+defStr+', we will be focusing on building those. Your top 3 deficient muscle groups are each trained twice per week. All other muscle groups are covered once per week to maintain full-body development.';
-  if(data.chestBackCombo) dHtml+=' Since your chest measurement reflects chest and back girth together, chest and back are trained on the same days so both keep pace with each other.';
-  if(data.waistIsPriority) dHtml+=' Your waist ranks among your top 3 deficiencies, so only 2 real muscle groups get the twice-weekly treatment — the 3rd slot is dedicated cardio instead of a lifting day, since trimming your waist comes primarily from cardio and diet rather than any single exercise.';
-  if(data.specialCalves) dHtml+=' Since calves are a top priority, a calf exercise has been added every other training day (5 sets × 15 reps).';
-  if(data.specialWaist) dHtml+=' Since reducing your waist is a priority, start every session with 10-15 minutes of cardio before lifting.';
-  if(data.neckStatus==='good') dHtml+=' Your neck measurement already meets your target, so no dedicated neck work has been added this week.';
-  else if(data.neckStatus==='bottom3') dHtml+=' Neck is one of your most lagging measurements, so neck work has been added twice this week — extension and flexion — on top of your regular training.';
-  else if(data.neckStatus==='deficient') dHtml+=' A neck extension exercise has been added once this week to keep neck development on track.';
+  dHtml+='<p style="font-size:10.5px;color:#7a9ab8;line-height:1.6">'+workoutPlanIntro(data,targetRefPdf);
   dHtml+='</p></div>';
   var htmlDoc='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+bbName+' Training Protocol</title><style>';
   htmlDoc+='*{box-sizing:border-box;margin:0;padding:0}';
